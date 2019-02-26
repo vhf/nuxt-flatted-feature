@@ -3,22 +3,11 @@
     <div>
       <logo />
       <h1 class="title">
-        devalue
+        {{ val }}
       </h1>
       <h2 class="subtitle">
-        My slick Nuxt.js project
+        = {{ $store.state.foo.id }} * 2
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >GitHub</a>
       </div>
     </div>
   </section>
@@ -30,6 +19,17 @@ import Logo from '~/components/Logo.vue'
 export default {
   components: {
     Logo
+  },
+  computed: {
+    val () {
+      let value
+      try {
+        value = this.$store.state.foo.transform()
+      } catch (err) {
+        value = err.message
+      }
+      return value
+    }
   }
 }
 </script>
